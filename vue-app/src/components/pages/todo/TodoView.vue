@@ -52,31 +52,48 @@
     </FormTag>
 
     <p class="panel-tabs">
-      <a class="is-active">All</a>
-      <a v-for="priority in priorities" :key="priority.id">{{
-        priority.name
-      }}</a>
+      <a
+        @click="setFilter(0)"
+        :class="currentFilter === 0 ? 'is-active' : ''"
+        href="javascript:void(0);"
+        >All</a
+      >
+      <a
+        v-for="priority in priorities"
+        @click="setFilter(priority.id)"
+        :key="priority.id"
+        :class="currentFilter === priority.id ? 'is-active' : ''"
+        href="javascript:void(0);"
+        >{{ priority.name }}</a
+      >
     </p>
     <template v-if="Object.keys(todos).length">
-      <a
-        v-for="todo in todos"
-        href="javascript:void(0);"
-        class="panel-block is-justify-content-space-between"
-        :key="todo.id"
-      >
-        <span
-          ><button @click="handleDelete(todo.id)" class="button is-danger mr-1">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-          <button @click="editTodo(todo)" class="button is-warning mr-5">
-            <i class="fa-solid fa-pen"></i>
-          </button>
-          <span>{{ todo.text }}</span></span
+      <span v-for="todo in todos" :key="todo.id">
+        <template
+          v-if="todo.priority_id === currentFilter || currentFilter === 0"
         >
-        <span class="tag" :class="todo.priority.badge">{{
-          todo.priority.name
-        }}</span>
-      </a>
+          <a
+            href="javascript:void(0);"
+            class="panel-block is-justify-content-space-between"
+          >
+            <span
+              ><button
+                @click="handleDelete(todo.id)"
+                class="button is-danger mr-1"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+              <button @click="editTodo(todo)" class="button is-warning mr-5">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <span>{{ todo.text }}</span></span
+            >
+            <span class="tag" :class="todo.priority.badge">{{
+              todo.priority.name
+            }}</span>
+          </a>
+        </template>
+      </span>
     </template>
     <template v-else>
       <span class="panel-block"> No todos found. </span>
@@ -111,6 +128,7 @@ export default {
     const priorities = ref([]);
     const todos = ref([]);
     const errors = ref({});
+    const currentFilter = ref(0);
     const todoID = ref(0);
     const priorityID = ref(null);
     const text = ref("");
@@ -228,6 +246,10 @@ export default {
       text.value = "";
     }
 
+    function setFilter(filter) {
+      currentFilter.value = filter;
+    }
+
     onBeforeMount(async () => {
       try {
         const response = await api.get(
@@ -280,6 +302,7 @@ export default {
       priorities,
       todos,
       errors,
+      currentFilter,
       todoID,
       priorityID,
       text,
@@ -287,6 +310,7 @@ export default {
       editTodo,
       handleDelete,
       cancel,
+      setFilter,
     };
   },
 };
