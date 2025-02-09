@@ -95,7 +95,6 @@ import { useApi } from "@/composables/api";
 import { useValidation } from "@/composables/validation";
 import FormTag from "@/components/forms/FormTag.vue";
 import TextInput from "@/components/forms/TextInput.vue";
-import BaseModal from "@/components/ui/BaseModal.vue";
 
 export default {
   name: "Todo",
@@ -104,7 +103,6 @@ export default {
   components: {
     FormTag,
     TextInput,
-    BaseModal,
   },
 
   setup(props, ctx) {

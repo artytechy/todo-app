@@ -1,6 +1,5 @@
 <template>
   <vue3-confirm-dialog />
-  <ModalsContainer />
   <div class="has-background-info">
     <Header @notification="setNotification" />
     <div class="container">
@@ -29,7 +28,6 @@ import { onBeforeMount, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/user.js";
 import { useCookies } from "./composables/cookies.js";
-import { ModalsContainer } from 'vue-final-modal'
 import Header from "@/components/layout/Header.vue";
 import Footer from "@/components/layout/Footer.vue";
 
@@ -38,7 +36,6 @@ export default {
   components: {
     Header,
     Footer,
-    ModalsContainer,
   },
 
   setup() {
