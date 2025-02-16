@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useUserStore } from "@/stores/user";
 
-import HomeView from "@/components/HomeView.vue";
 import LoginView from "@/components/auth/LoginView.vue";
 import RegisterView from "@/components/auth/RegisterView.vue";
 import TodoView from "@/components/pages/todo/TodoView.vue";
@@ -9,8 +8,7 @@ import TodoView from "@/components/pages/todo/TodoView.vue";
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: HomeView,
+    redirect: "/todo",
   },
   {
     path: "/login",
@@ -59,8 +57,8 @@ router.beforeEach((to, from, next) => {
   // Check if the route is for logged-in users only (e.g., login or register)
   else if (to.matched.some((record) => record.meta.hideForAuth)) {
     if (userStore.token !== "") {
-      // If logged in, redirect to home
-      next({ name: "Home" });
+      // If logged in, redirect to login
+      next({ name: "Login" });
     } else {
       // If not logged in, proceed to the requested route
       next();

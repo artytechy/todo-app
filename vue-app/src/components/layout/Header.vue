@@ -21,12 +21,6 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <RouterLink
-          to="/"
-          class="navbar-item"
-          :class="{ 'is-active': $route.path === '/' }"
-          >Home</RouterLink
-        >
         <template v-if="userStore.token !== ''">
           <RouterLink
             to="/todo"
