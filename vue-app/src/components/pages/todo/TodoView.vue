@@ -99,7 +99,10 @@
       <span class="panel-block"> No todos found. </span>
     </template>
     <div class="panel-block">
-      <button @click="setFilter(0)" class="button is-link is-outlined is-fullwidth">
+      <button
+        @click="setFilter(0)"
+        class="button is-link is-outlined is-fullwidth"
+      >
         Reset all filters
       </button>
     </div>
